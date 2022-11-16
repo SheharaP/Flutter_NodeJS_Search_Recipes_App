@@ -10,7 +10,7 @@ Recipe App
 
                     Build -> `npm start`
 
-[Documentation] (https://docs.google.com/document/d/15pXdaTcA3DlssmBooQdUb4f1uZxb52ZqJUXP0lccIo8/edit?usp=sharing) for Flutter Application
+[Documentation](https://docs.google.com/document/d/15pXdaTcA3DlssmBooQdUb4f1uZxb52ZqJUXP0lccIo8/edit?usp=sharing) for Flutter Application
 
 > Directory
 Client > Flutter front-end side
