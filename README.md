@@ -1,6 +1,6 @@
-Recipe App
+#Recipe App
 
-#created with Flutter, Node JS, Express JS, Mongoose & Container MongoDB with Docker
+##Created with Flutter, Node JS, Express JS, Mongoose & Container MongoDB with Docker
 
 1. Clone respository
 
