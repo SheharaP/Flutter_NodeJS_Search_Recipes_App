@@ -8,17 +8,13 @@ class fetchController {
         try{
             const result = await itemModel.find();
             //console.log(...result);
-            
             console.log(result);
-          
             res.send(result);
         }
         catch (error){
             console.log(error);
         }
-      
     }
-
 }
 
 

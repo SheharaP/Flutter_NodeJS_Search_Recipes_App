@@ -1,33 +1,18 @@
-import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:flutter_typeahead/flutter_typeahead.dart';
+import 'package:recipe_app/Api_service.dart';
 
-import 'package:recipe_app/search_bar.dart';
+import 'package:recipe_app/search.dart';
 
-import 'package:http/http.dart' as http;
+import 'package:recipe_app/user_model.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({super.key});
-
   @override
-  State<HomePage> createState() => _HomePageState();
+  _HomePageState createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
-  String baseURL = 'http://10.0.2.2:8080/items';
-
-  Future<List> getIngredients() async {
-    try {
-      var response = await http.get(Uri.parse(baseURL));
-
-      if (response.statusCode == 200) {
-        return jsonDecode(response.body);
-      } else {
-        return Future.error('Server error');
-      }
-    } catch (error) {
-      return Future.error(error);
-    }
-  }
+  FetchUserList _userList = FetchUserList();
 
   String formatCase(String text) {
     if (text.length <= 1) {
@@ -52,41 +37,48 @@ class _HomePageState extends State<HomePage> {
     return capitalizedWords.join(' ');
   }
 
+  bool showTextField = false;
+
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-        child: Column(
-      children: [
-        Search(),
-        Container(
-          child: FutureBuilder<List>(
-            future: getIngredients(),
-            builder: (context, snapshot) {
-              print(snapshot.data);
-              //print(snapshot);
-              if (snapshot.hasData) {
-                return ListView.builder(
-                  shrinkWrap: true,
-                  itemCount: snapshot.data?.length,
-                  itemBuilder: (BuildContext context, i) {
-                    return Card(
-                      child: ListTile(
-                        title: Text(
-                          formatCase(snapshot.data![i]['name']),
-                        ),
-                      ),
-                    );
-                  },
-                );
-              } else {
-                return const Center(
-                  child: Text('No data found'),
-                );
-              }
-            },
+    return SafeArea(
+      child: Column(
+        children: [
+          Column(
+            children: [
+              Container(
+                margin: const EdgeInsets.fromLTRB(20, 10, 20, 20),
+                width: double.infinity,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(30),
+                  color: Colors.white,
+                ),
+                child: SearchUser()
+              ),
+            ],
           ),
-        ),
-      ],
-    ));
+          Expanded(
+            child: FutureBuilder<List<Userlist>>(
+                future: _userList.getuserList(),
+                builder: (context, snapshot) {
+                  var data = snapshot.data;
+                  return ListView.builder(
+                      shrinkWrap: true,
+                      itemCount: data?.length,
+                      itemBuilder: (context, index) {
+                        return Card(
+                          margin: EdgeInsets.fromLTRB(15, 5, 15, 5),
+                          child: ListTile(
+                            title: Text(
+                              formatCase('${data?[index].name}'),
+                            ),
+                          ),
+                        );
+                      });
+                }),
+          ),
+        ],
+      ),
+    );
   }
 }

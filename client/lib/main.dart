@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:recipe_app/home_page.dart';
-import 'package:recipe_app/profile_page.dart';
+import 'package:recipe_app/search.dart';
 
 void main() {
   runApp(const MyApp());
@@ -32,9 +32,9 @@ class Root extends StatefulWidget {
 
 class _RootState extends State<Root> {
   int currentPage = 0;
-  List<Widget> pages = const [
+  List<Widget> pages =  [
     HomePage(),
-    ProfilePage(),
+    SearchUser(),
   ];
 
   @override
@@ -60,7 +60,7 @@ class _RootState extends State<Root> {
         backgroundColor: const Color(0xFFe9dac1),
         destinations: const [
           NavigationDestination(icon: Icon(Icons.home), label: 'Home'),
-          NavigationDestination(icon: Icon(Icons.person), label: 'Profile'),
+          NavigationDestination(icon: Icon(Icons.search_outlined), label: 'Search'),
         ],
         onDestinationSelected: (int index) {
           setState(() {
