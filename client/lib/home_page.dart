@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_typeahead/flutter_typeahead.dart';
+
 import 'package:recipe_app/Api_service.dart';
-
 import 'package:recipe_app/search.dart';
-
-import 'package:recipe_app/user_model.dart';
+import 'package:recipe_app/models/user_model.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -12,32 +10,9 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  FetchUserList _userList = FetchUserList();
+  final FetchUserList _userList = FetchUserList();
 
-  String formatCase(String text) {
-    if (text.length <= 1) {
-      return text.toUpperCase();
-    }
-
-    // Split string into multiple words
-    final List<String> words = text.split(' ');
-
-    // Capitalize first letter of each words
-    final capitalizedWords = words.map((word) {
-      if (word.trim().isNotEmpty) {
-        final String firstLetter = word.trim().substring(0, 1).toUpperCase();
-        final String remainingLetters = word.trim().substring(1);
-
-        return '$firstLetter$remainingLetters';
-      }
-      return '';
-    });
-
-    // Join/Merge all words back to one String
-    return capitalizedWords.join(' ');
-  }
-
-  bool showTextField = false;
+  bool showTextField = false; 
 
   @override
   Widget build(BuildContext context) {
@@ -47,14 +22,13 @@ class _HomePageState extends State<HomePage> {
           Column(
             children: [
               Container(
-                margin: const EdgeInsets.fromLTRB(20, 10, 20, 20),
-                width: double.infinity,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(30),
-                  color: Colors.white,
-                ),
-                child: SearchUser()
-              ),
+                  margin: const EdgeInsets.fromLTRB(20, 15, 20, 15),
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(30),
+                    color: Colors.white,
+                  ),
+                  child: SearchUser()),
             ],
           ),
           Expanded(
@@ -70,8 +44,12 @@ class _HomePageState extends State<HomePage> {
                           margin: EdgeInsets.fromLTRB(15, 5, 15, 5),
                           child: ListTile(
                             title: Text(
-                              formatCase('${data?[index].name}'),
+                              Userlist.formatCase('${data?[index].name}'),
                             ),
+                            onTap: () {
+                              debugPrint('Item ${(data?[index].name)} selected');
+                              SearchUser.searchIngredientsList(value : data?[index].name);
+                            },
                           ),
                         );
                       });
