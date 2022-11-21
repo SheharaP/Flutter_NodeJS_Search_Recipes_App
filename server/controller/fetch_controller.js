@@ -1,12 +1,15 @@
-const itemModel = require('../models/item_models');
-
 
 class fetchController {
 
-    static data = async (req, res) => {
+    constructor(p){
+        this.item  = (p && p.item);
+    }
+
+    data = async (req, res) => {
 
         try{
-            const result = await itemModel.find();
+            console.log(this.item);
+            const result = await (this.item).find({});
             //console.log(...result);
             console.log(result);
             res.send(result);

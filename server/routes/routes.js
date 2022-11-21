@@ -4,43 +4,21 @@ const router = express.Router();
 
 const fetchController = require('../controller/fetch_controller');
 
-router.get("/items", fetchController.data);
+const itemModel = require('../models/item_models');
+const recipeModel = require('../models/recipe_models');
 
-// router.get("/", async (req, res) => {
-
-//     const result = await data;
-
-//     console.log('this is data parsed', result);
-    
-//     res.status(200).json({
-//         message:  await data,
-//     });
-// });
-
-router.post("/", async (req, res) => {
-    const {name, email} = req.body;
-
-    console.log(name);
-    console.log(email);
-
-    res.json({
-        message: {
-            name,
-            email
-        },
-    });
+const items = new fetchController({
+    item: itemModel,
 });
 
-router.get("/about", async (req, res) => {
-    res.json({
-        message: "This is the about page!",
-    });
+const recipes = new fetchController({
+    item: recipeModel,
 });
 
-router.get("/profile", async (req, res) => {
-    res.json({
-        message: "This is the amazing profile page!",
-    });
-});
+router.get("/items", items.data);
+
+router.get("/recipes", recipes.data);
+
+
 
 module.exports = router;

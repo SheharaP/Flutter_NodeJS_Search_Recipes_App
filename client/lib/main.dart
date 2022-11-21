@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
 import 'package:recipe_app/home_page.dart';
-import 'package:recipe_app/search.dart';
+//import 'package:recipe_app/search.dart';
+import 'package:recipe_app/selected_ingredient.dart';
 
 void main() {
   runApp(const MyApp());
@@ -34,7 +35,8 @@ class _RootState extends State<Root> {
   int currentPage = 0;
   List<Widget> pages =  [
     HomePage(),
-    SearchUser(),
+    SelectedIngredients(),
+    //SearchUser(),
   ];
 
   @override
@@ -60,7 +62,8 @@ class _RootState extends State<Root> {
         backgroundColor: const Color(0xFFe9dac1),
         destinations: const [
           NavigationDestination(icon: Icon(Icons.home), label: 'Home'),
-          NavigationDestination(icon: Icon(Icons.search_outlined), label: 'Search'),
+          NavigationDestination(icon: Icon(Icons.list_alt), label: 'Ingredient List'),
+          //NavigationDestination(icon: Icon(Icons.search_outlined), label: 'Search'),
         ],
         onDestinationSelected: (int index) {
           setState(() {

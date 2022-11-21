@@ -2,20 +2,55 @@ import 'package:flutter/material.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 
 import 'package:recipe_app/Api_service.dart';
-import 'package:recipe_app/user_model.dart';
+import 'package:recipe_app/models/user_model.dart';
 
 class SearchUser extends StatelessWidget {
-  FetchUserList _userList = FetchUserList();
+
+  static List<String?> searchRecipeList = [];
+
+  static Future<List<String?>> searchIngredientsList({String? value}) async {
+    // ignore: iterable_contains_unrelated_type
+    if (searchRecipeList.contains(value)) {
+      debugPrint('Ingredient is already there');
+    } else {
+      if (value != null) {
+
+        searchRecipeList.add(value);
+
+        // searchRecipeList = searchRecipeList
+        //     .where(
+        //       (element) => element!.toLowerCase().contains(
+        //             (value!.toLowerCase()),
+        //           ),
+        //     )
+        //     .toList();
+
+        print(searchRecipeList);
+      }
+    }
+    return searchRecipeList;
+  }
 
   @override
   Widget build(BuildContext context) {
     return TypeAheadField<Userlist?>(
+      debounceDuration: Duration(milliseconds: 500),
+      textFieldConfiguration: const TextFieldConfiguration(
+          decoration: InputDecoration(
+        prefixIcon: Icon(Icons.search_outlined),
+        border: InputBorder.none,
+        hintText: 'Search Ingredients',
+      )),
       suggestionsCallback: FetchUserList.searchUserList,
       itemBuilder: (context, Userlist? suggestion) {
         final user = suggestion!;
-        print(user.name);
+        //print(user.name);
         return ListTile(
-          title: Text(user.name),
+          title: Text(Userlist.formatCase(user.name)),
+          onTap: () {
+            debugPrint('Item ${(user.name)} selected');
+            searchIngredientsList(value: user.name);
+          },
         );
       },
       noItemsFoundBuilder: (context) => Container(
@@ -40,55 +75,6 @@ class SearchUser extends StatelessWidget {
       },
     );
   }
-
-  // return FutureBuilder<List<Userlist>>(
-  //     future: _userList.getuserList(query: query),
-  //     builder: (context, snapshot) {
-  //       if (!snapshot.hasData) {
-  //         return Center(
-  //           child: CircularProgressIndicator(),
-  //         );
-  //       }
-  //       List<Userlist>? data = snapshot.data;
-  //       return ListView.builder(
-  //           itemCount: data?.length,
-  //           itemBuilder: (context, index) {
-  //             return ListTile(
-  //               title: Row(
-  //                 children: [
-  //                   Container(
-  //                     width: 60,
-  //                     height: 60,
-  //                     decoration: BoxDecoration(
-  //                       color: Colors.deepPurpleAccent,
-  //                       borderRadius: BorderRadius.circular(10),
-  //                     ),
-  //                     child: Center(
-  //                       child: Text(
-  //                         '${data?[index].id}',
-  //                         style: TextStyle(
-  //                             fontSize: 20,
-  //                             fontWeight: FontWeight.bold,
-  //                             color: Colors.white),
-  //                         overflow: TextOverflow.clip,
-  //                       ),
-  //                     ),
-  //                   ),
-  //                   SizedBox(width: 20),
-  //                   Column(
-  //                       crossAxisAlignment: CrossAxisAlignment.start,
-  //                       children: [
-  //                         Text(
-  //                           '${data?[index].name}',
-  //                           style: TextStyle(
-  //                               fontSize: 18, fontWeight: FontWeight.w600),
-  //                         ),
-  //                       ])
-  //                 ],
-  //               ),
-  //             );
-  //           });
-  //     });
 
   @override
   Widget buildSuggestions(BuildContext context) {
