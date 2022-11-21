@@ -1,39 +1,42 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 
-import 'package:recipe_app/Api_service.dart';
-import 'package:recipe_app/models/user_model.dart';
+import 'package:recipe_app/routes/api_connection.dart';
+import 'package:recipe_app/models/ingredient_model.dart';
 
-class SearchUser extends StatelessWidget {
+class SearchItem extends StatelessWidget {
 
   static List<String?> searchRecipeList = [];
 
   static Future<List<String?>> searchIngredientsList({String? value}) async {
     // ignore: iterable_contains_unrelated_type
+    
     if (searchRecipeList.contains(value)) {
       debugPrint('Ingredient is already there');
     } else {
       if (value != null) {
 
         searchRecipeList.add(value);
-
-        // searchRecipeList = searchRecipeList
-        //     .where(
-        //       (element) => element!.toLowerCase().contains(
-        //             (value!.toLowerCase()),
-        //           ),
-        //     )
-        //     .toList();
-
         print(searchRecipeList);
       }
     }
     return searchRecipeList;
   }
 
+    static Future<List<String?>> deleteIngredientsList({String? value}) async {
+    // ignore: iterable_contains_unrelated_type
+    
+    if (searchRecipeList.contains(value)) {
+      searchRecipeList.remove(value);
+    } else {
+      debugPrint('Ingredient is not there');
+    }
+    return searchRecipeList;
+  }
+
   @override
   Widget build(BuildContext context) {
-    return TypeAheadField<Userlist?>(
+    return TypeAheadField<ItemList?>(
       debounceDuration: Duration(milliseconds: 500),
       textFieldConfiguration: const TextFieldConfiguration(
           decoration: InputDecoration(
@@ -41,12 +44,12 @@ class SearchUser extends StatelessWidget {
         border: InputBorder.none,
         hintText: 'Search Ingredients',
       )),
-      suggestionsCallback: FetchUserList.searchUserList,
-      itemBuilder: (context, Userlist? suggestion) {
+      suggestionsCallback: FetchItemList.searchItemList,
+      itemBuilder: (context, ItemList? suggestion) {
         final user = suggestion!;
         //print(user.name);
         return ListTile(
-          title: Text(Userlist.formatCase(user.name)),
+          title: Text(ItemList.formatCase(user.name)),
           onTap: () {
             debugPrint('Item ${(user.name)} selected');
             searchIngredientsList(value: user.name);
@@ -55,14 +58,14 @@ class SearchUser extends StatelessWidget {
       },
       noItemsFoundBuilder: (context) => Container(
         height: 100,
-        child: Center(
+        child: const Center(
           child: Text(
             'No ingredients found',
             style: TextStyle(fontSize: 20),
           ),
         ),
       ),
-      onSuggestionSelected: (Userlist? suggestion) {
+      onSuggestionSelected: (ItemList? suggestion) {
         final user = suggestion!;
 
         ScaffoldMessenger.of(context)
@@ -73,13 +76,6 @@ class SearchUser extends StatelessWidget {
             ),
           );
       },
-    );
-  }
-
-  @override
-  Widget buildSuggestions(BuildContext context) {
-    return Center(
-      child: Text('Search User'),
     );
   }
 }

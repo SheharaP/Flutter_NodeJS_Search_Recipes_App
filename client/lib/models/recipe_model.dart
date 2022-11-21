@@ -1,15 +1,17 @@
 
-class Userlist {
+class RecipeList {
   final String name;
   int? id;
+  final List ingredients;
 
-  Userlist(
+  RecipeList(
       {
       this.id,
-      required this.name});
+      required this.name,
+      required this.ingredients});
 
-static Userlist fromJson(Map<String, dynamic> json) => Userlist (
-  name : json['name'],
+static RecipeList fromJson(Map<String, dynamic> json) => RecipeList (
+  name : json['name'], ingredients: json['ingredients'],
 );
 
 static String formatCase(String text) {
@@ -42,9 +44,10 @@ static String formatCase(String text) {
   // }
 
   Map<String, dynamic> toJson(e) {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['name'] = this.name;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['name'] = name;
+    data['ingredients'] = ingredients;
 
     return data;
   }

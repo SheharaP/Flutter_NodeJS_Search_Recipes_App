@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 
 import 'package:recipe_app/home_page.dart';
-//import 'package:recipe_app/search.dart';
+
 import 'package:recipe_app/selected_ingredient.dart';
+import 'package:recipe_app/recipes.dart';
 
 void main() {
   runApp(const MyApp());
@@ -25,6 +26,7 @@ class MyApp extends StatelessWidget {
 }
 
 class Root extends StatefulWidget {
+
   const Root({super.key});
 
   @override
@@ -34,9 +36,9 @@ class Root extends StatefulWidget {
 class _RootState extends State<Root> {
   int currentPage = 0;
   List<Widget> pages =  [
-    HomePage(),
-    SelectedIngredients(),
-    //SearchUser(),
+    const HomePage(),
+    const SelectedIngredients(),
+    Recipes(),
   ];
 
   @override
@@ -63,11 +65,12 @@ class _RootState extends State<Root> {
         destinations: const [
           NavigationDestination(icon: Icon(Icons.home), label: 'Home'),
           NavigationDestination(icon: Icon(Icons.list_alt), label: 'Ingredient List'),
-          //NavigationDestination(icon: Icon(Icons.search_outlined), label: 'Search'),
+          NavigationDestination(icon: Icon(Icons.receipt), label: 'Recipes'),
         ],
         onDestinationSelected: (int index) {
           setState(() {
             currentPage = index;
+            
           });
         },
         selectedIndex: currentPage,

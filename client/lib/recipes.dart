@@ -1,19 +1,16 @@
 import 'package:flutter/material.dart';
 
 import 'package:recipe_app/routes/api_connection.dart';
-import 'package:recipe_app/search/search&filter.dart';
-import 'package:recipe_app/search/search_ingredient.dart';
-import 'package:recipe_app/models/ingredient_model.dart';
+import 'package:recipe_app/search/search_recipe.dart';
+import 'package:recipe_app/models/recipe_model.dart';
 
-class HomePage extends StatefulWidget {
-  const HomePage({super.key});
-
+class Recipes extends StatefulWidget {
   @override
-  _HomePageState createState() => _HomePageState();
+  _RecipesState createState() => _RecipesState();
 }
 
-class _HomePageState extends State<HomePage> {
-  final FetchItemList _itemList = FetchItemList();
+class _RecipesState extends State<Recipes> {
+  final FetchRecipeList _recipeList = FetchRecipeList();
 
   bool showTextField = false;
 
@@ -25,38 +22,36 @@ class _HomePageState extends State<HomePage> {
           Column(
             children: [
               Container(
-                margin: const EdgeInsets.fromLTRB(20, 15, 20, 15),
-                width: double.infinity,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(30),
-                  color: Colors.white,
-                ),
-                child: SearchItem(),
-              ),
+                  margin: const EdgeInsets.fromLTRB(20, 15, 20, 15),
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(30),
+                    color: Colors.white,
+                  ),
+                  child: SearchRecipe()),
             ],
           ),
           Expanded(
-            child: FutureBuilder<List<ItemList>>(
-                future: _itemList.getItemList(),
+            child: FutureBuilder<List<RecipeList>>(
+                future: _recipeList.getRecipeList(),
                 builder: (context, snapshot) {
                   var data = snapshot.data;
                   return snapshot.connectionState == ConnectionState.waiting
-                      ? const CircularProgressIndicator()
+                      ? CircularProgressIndicator()
                       : ListView.builder(
                           shrinkWrap: true,
                           itemCount: data?.length,
                           itemBuilder: (context, index) {
                             return Card(
-                              margin: const EdgeInsets.fromLTRB(15, 5, 15, 5),
+                              margin: EdgeInsets.fromLTRB(15, 5, 15, 5),
                               child: ListTile(
                                 title: Text(
-                                  ItemList.formatCase('${data?[index].name}'),
+                                  RecipeList.formatCase('${data?[index].name}'),
                                 ),
                                 onTap: () {
                                   debugPrint(
                                       'Item ${(data?[index].name)} selected');
-                                  SearchItem.searchIngredientsList(
-                                      value: data?[index].name);
+                                  //SearchUser.searchIngredientsList(value : data?[index].name);
                                 },
                               ),
                             );

@@ -1,15 +1,18 @@
 
-class Userlist {
+class ItemList {
   final String name;
   int? id;
+  final List category;
 
-  Userlist(
+  ItemList(
       {
       this.id,
-      required this.name});
+      required this.name,
+      required this.category});
 
-static Userlist fromJson(Map<String, dynamic> json) => Userlist (
+static ItemList fromJson(Map<String, dynamic> json) => ItemList (
   name : json['name'],
+  category : json['category'],
 );
 
 static String formatCase(String text) {
@@ -45,6 +48,7 @@ static String formatCase(String text) {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['id'] = this.id;
     data['name'] = this.name;
+    data['category'] = this.category;
 
     return data;
   }
