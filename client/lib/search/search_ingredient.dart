@@ -46,13 +46,13 @@ class SearchItem extends StatelessWidget {
       )),
       suggestionsCallback: FetchItemList.searchItemList,
       itemBuilder: (context, ItemList? suggestion) {
-        final user = suggestion!;
+        final item = suggestion!;
         //print(user.name);
         return ListTile(
-          title: Text(ItemList.formatCase(user.name)),
+          title: Text(ItemList.formatCase(item.name)),
           onTap: () {
-            debugPrint('Item ${(user.name)} selected');
-            searchIngredientsList(value: user.name);
+            debugPrint('Item ${(item.name)} selected');
+            searchIngredientsList(value: item.name);
           },
         );
       },
@@ -66,13 +66,13 @@ class SearchItem extends StatelessWidget {
         ),
       ),
       onSuggestionSelected: (ItemList? suggestion) {
-        final user = suggestion!;
+        final item = suggestion!;
 
         ScaffoldMessenger.of(context)
           ..removeCurrentSnackBar()
           ..showSnackBar(
             SnackBar(
-              content: Text('Selected user : ${user.name}'),
+              content: Text('Selected user : ${item.name}'),
             ),
           );
       },

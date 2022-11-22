@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 import 'package:recipe_app/routes/api_connection.dart';
-import 'package:recipe_app/search/search&filter.dart';
 import 'package:recipe_app/search/search_ingredient.dart';
 import 'package:recipe_app/models/ingredient_model.dart';
 
@@ -27,6 +26,7 @@ class _HomePageState extends State<HomePage> {
               Container(
                 margin: const EdgeInsets.fromLTRB(20, 15, 20, 15),
                 width: double.infinity,
+                height: 40,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(30),
                   color: Colors.white,
@@ -57,6 +57,7 @@ class _HomePageState extends State<HomePage> {
                                       'Item ${(data?[index].name)} selected');
                                   SearchItem.searchIngredientsList(
                                       value: data?[index].name);
+                                  showResult(data?[index].name);
                                 },
                               ),
                             );
@@ -67,4 +68,13 @@ class _HomePageState extends State<HomePage> {
       ),
     );
   }
+
+  ScaffoldMessengerState showResult(x) => ScaffoldMessenger.of(context)
+    ..removeCurrentSnackBar()
+    ..showSnackBar(
+      SnackBar(
+        content: Text('Selected ingredient : ${ItemList.formatCase('${x}')}'),
+        duration: const Duration(milliseconds: 500),
+      ),
+    );
 }

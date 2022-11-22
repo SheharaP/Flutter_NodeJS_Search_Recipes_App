@@ -26,7 +26,6 @@ class MyApp extends StatelessWidget {
 }
 
 class Root extends StatefulWidget {
-
   const Root({super.key});
 
   @override
@@ -35,7 +34,7 @@ class Root extends StatefulWidget {
 
 class _RootState extends State<Root> {
   int currentPage = 0;
-  List<Widget> pages =  [
+  List<Widget> pages = [
     const HomePage(),
     const SelectedIngredients(),
     Recipes(),
@@ -47,30 +46,44 @@ class _RootState extends State<Root> {
       backgroundColor: const Color(0xFFe9dac1),
       appBar: AppBar(
         backgroundColor: const Color(0xFFe9dac1),
-        title: const Text(
-          'Ingredients', 
-          style: TextStyle(color: Colors.black),
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Image.asset(
+              'Images/recipe_app_logo.png',
+              fit: BoxFit.contain,
+              height: 70,
+            ),
+          ],
         ),
+        //const Text(
+        //   'Ingredients',
+        //   style: TextStyle(color: Colors.black),
+        // ),
         elevation: 0,
       ),
       body: pages[currentPage],
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          debugPrint('Floating Action Button');
-        },
-        child: const Icon(Icons.add),
-      ),
       bottomNavigationBar: NavigationBar(
         backgroundColor: const Color(0xFFe9dac1),
         destinations: const [
-          NavigationDestination(icon: Icon(Icons.home), label: 'Home'),
-          NavigationDestination(icon: Icon(Icons.list_alt), label: 'Ingredient List'),
-          NavigationDestination(icon: Icon(Icons.receipt), label: 'Recipes'),
+          NavigationDestination(
+              icon: ImageIcon(
+                AssetImage("Images/ingredients_nav.png"),
+                size: 35,
+              ),
+              label: 'Ingredients'),
+          NavigationDestination(
+              icon: Icon(Icons.list_alt_sharp, size: 30), label: 'Selected Items'),
+          NavigationDestination(
+              icon: ImageIcon(
+                AssetImage("Images/recipes_nav.png"),
+                size: 35,
+              ),
+              label: 'Recipes'),
         ],
         onDestinationSelected: (int index) {
           setState(() {
             currentPage = index;
-            
           });
         },
         selectedIndex: currentPage,

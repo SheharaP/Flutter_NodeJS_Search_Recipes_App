@@ -1,8 +1,8 @@
 
 class fetchController {
 
-    constructor(p){
-        this.item  = (p && p.item);
+    constructor(params){
+        this.item  = (params && params.item);
     }
 
     data = async (req, res) => {

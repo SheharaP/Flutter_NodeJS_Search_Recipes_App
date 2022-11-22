@@ -1,6 +1,9 @@
+import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
 import 'package:recipe_app/models/ingredient_model.dart';
+
 import 'package:recipe_app/routes/api_connection.dart';
+import 'package:recipe_app/search/search_ingredient.dart';
 
 class FilterCategory extends StatefulWidget {
   @override
@@ -13,37 +16,40 @@ class _FilterCategoryState extends State<FilterCategory> {
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<List<String>>(
-        future: _itemList.getCategoryList(),
-        builder: (context, snapshot) {
-          var data = snapshot.data;
-          return ListView.builder(
-                  shrinkWrap: true,
-                  itemCount: data?.length,
-                  itemBuilder: (context, index) {
-                    return DropdownButton(
-                      value: valueKey,
-                      onChanged: (newValue) {
-                        print('CATEGORY ${data?[index]}');
-                        setState((){
-                          //valueKey = newValue!;
-                        });
-                      }, items: [],
-                      // items: data.map((valueItem) {
-                      //   return DropdownMenuItem(child: Text(valueItem),);
-                      // }),
-                    );
-                  });
-        });
+    return ListView(
+      scrollDirection: Axis.horizontal,
+      children: [
+        buildCard(),
+        SizedBox(width: 10,),
+        buildCard(),
+        SizedBox(width: 10,),
+        buildCard(),
+        SizedBox(width: 10,),
+        buildCard(),
+        SizedBox(width: 10,),
+        buildCard(),
+        SizedBox(width: 10,),
+      ],
 
-    // DropdownButton(
-    //   value: valueKey,
-    //   onChanged: (newValue) {
-    //     setState((){
-    //       valueKey = newValue!;
-    //     });
-    //   },
-    //   items: FetchItemList.getItemList.category,
-    // );
+    );
+
   }
+
+  Widget buildCard() => Container(
+    width: 200,
+    height: 200,
+    color: Colors.brown,
+  );
 }
+
+
+
+
+              // Container(
+              //   margin: const EdgeInsets.fromLTRB(20, 15, 20, 5),
+              //   width: double.infinity,
+              //   decoration: const BoxDecoration(
+              //     color: Colors.white,
+              //   ),
+              //   child: FilterCategory(),
+              // ),

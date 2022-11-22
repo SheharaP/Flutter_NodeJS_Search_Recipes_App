@@ -17,7 +17,7 @@ class _FoundRecipeListState extends State<FoundRecipeList> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Learn Flutter'),
+        title: const Text('Recipes'),
         automaticallyImplyLeading: false,
         leading: IconButton(
           onPressed: () {
@@ -25,14 +25,6 @@ class _FoundRecipeListState extends State<FoundRecipeList> {
           },
           icon: const Icon(Icons.arrow_back_ios),
         ),
-        actions: [
-          IconButton(
-            onPressed: () {
-              debugPrint('Actions');
-            },
-            icon: const Icon(Icons.info_outline),
-          ),
-        ],
       ),
       body: SingleChildScrollView(
         child: FutureBuilder<List<RecipeList>>(

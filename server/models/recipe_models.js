@@ -9,15 +9,4 @@ const recipeSchema = new mongoose.Schema({
 
 const recipeModel = new mongoose.model('recipes', recipeSchema);
 
-// const data = new itemModel({name : 'Mango', category : ['Fruit']});
-// data.save();
-
-// const data2= async() => {
-//   const result = await itemModel.insertMany([
-//     {name : 'Tomato', category : ['Fruit', 'Vegetable']},
-//     {name : 'Chicken', category : ['Poultry']},
-// ])
-// }
-// data2();
-
 module.exports = recipeModel;

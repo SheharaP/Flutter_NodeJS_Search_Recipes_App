@@ -24,6 +24,7 @@ class _RecipesState extends State<Recipes> {
               Container(
                   margin: const EdgeInsets.fromLTRB(20, 15, 20, 15),
                   width: double.infinity,
+                  height: 40,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(30),
                     color: Colors.white,

@@ -42,10 +42,13 @@ class _SelectedIngredientsState extends State<SelectedIngredients> {
                                       ItemList.formatCase('${data?[index]}'),
                                     ),
                                     trailing: IconButton(
-                                      icon: const Icon(Icons.delete_outline_sharp),
+                                      icon: const Icon(
+                                          Icons.delete_outline_sharp),
                                       onPressed: () {
+                                        showResult(data?[index]);
                                         debugPrint('Delete ${data?[index]}');
-                                        SearchItem.deleteIngredientsList(value: data?[index]);
+                                        SearchItem.deleteIngredientsList(
+                                            value: data?[index]);
                                         updateUI();
                                       },
                                     )),
@@ -78,8 +81,30 @@ class _SelectedIngredientsState extends State<SelectedIngredients> {
             },
             child: const Text('Get Recipes!'),
           ),
+          // Container(
+          //   width: 40.0,
+          //   height: 40.0,
+          //   margin: EdgeInsets.all(20),
+          //   child: FloatingActionButton(
+          //     onPressed: () {
+          //       debugPrint('Floating Action Button');
+          //     },
+          //     child: const Icon(
+          //       Icons.arrow_forward_ios_outlined,
+          //     ),
+          //   ),
+          // ),
         ],
       ),
     ]);
   }
+
+  ScaffoldMessengerState showResult(x) => ScaffoldMessenger.of(context)
+    ..removeCurrentSnackBar()
+    ..showSnackBar(
+      SnackBar(
+        content: Text('Deleted ingredient : ${ItemList.formatCase('${x}')}'),
+        duration: const Duration(milliseconds: 500),
+      ),
+    );
 }

@@ -30,7 +30,7 @@ class SearchRecipe extends StatelessWidget {
       },
       noItemsFoundBuilder: (context) => Container(
         height: 100,
-        child: Center(
+        child: const Center(
           child: Text(
             'No ingredients found',
             style: TextStyle(fontSize: 20),
