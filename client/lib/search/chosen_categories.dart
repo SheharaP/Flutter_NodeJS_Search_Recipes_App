@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:recipe_app/models/ingredient_model.dart';
 
-class ChosenCategory extends StatelessWidget {
+class ChosenCategory extends StatefulWidget {
 
-  const ChosenCategory({super.key, required String item});
-  
+  const ChosenCategory({super.key});
+
+  @override
+  State<ChosenCategory> createState() => _ChosenCategoryState();
+}
+
+class _ChosenCategoryState extends State<ChosenCategory> {
   get item => ChosenCategory;
 
   @override

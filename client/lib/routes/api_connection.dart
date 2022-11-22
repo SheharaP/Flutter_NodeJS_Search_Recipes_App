@@ -71,36 +71,55 @@ Future<List> getCategoryList({String? query}) async {
     return results;
   }
 
-  Future<List<ItemList>> getCategoryIngredients({String? query}) async {
+  Future<List<dynamic>> getCategoryIngredients({String? category}) async {
+
     var response = await Dio().get(urlItemList);
 
-    List<ItemList> newItemList = [];
+    List<dynamic> allItemList = [];
 
     if (response.statusCode == 200) {
 
-      if (query == null) {
+      if (category == null) {
 
         print('NULL QUERY');
 
-        newItemList = await getItemList();
+        final List items = response.data.toList();
 
-        return newItemList;
+        for (var element in items) {
+          print(element);
+          allItemList.add(element['name']);
+        }
+
+        print(allItemList);
+
+        return allItemList;
 
       } else {
 
         print('NOT NULL QUERY');
+
         final List categories = response.data.toList();
 
         List<dynamic> foundCategoryItems = [];
 
         for (var element in categories) {
-          //print(element['category'].join(', '));
-          for (var e in element[query]) {
-            print(element['name']);
+          for (var e in element['category']) {
+            print(e);
+            if(e == category){
+              foundCategoryItems.add(element['name']);
+              print(element['name']);
+              break;
+            }
+            else{
+              continue;
+            }
+            
           }
         }
 
-        return newItemList;
+        print(foundCategoryItems);
+
+        return foundCategoryItems;
       }
     } else {
       throw Exception();

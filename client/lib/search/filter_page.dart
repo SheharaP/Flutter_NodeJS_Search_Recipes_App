@@ -8,7 +8,7 @@ class FilterPage extends StatelessWidget {
 
    final FetchItemList _itemList = FetchItemList();
 
-   static String? filterCategory(String item) {
+   static String? filterCategory (String item) {
     print('Recieved ${item}');
     return item;
   }
