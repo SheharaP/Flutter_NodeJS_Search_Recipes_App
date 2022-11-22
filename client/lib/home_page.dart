@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:recipe_app/search/filter_page.dart';
 
 import 'package:recipe_app/routes/api_connection.dart';
+
 import 'package:recipe_app/search/search_ingredient.dart';
 import 'package:recipe_app/models/ingredient_model.dart';
 
@@ -14,30 +16,24 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   final FetchItemList _itemList = FetchItemList();
 
-  bool showTextField = false;
-
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Column(
         children: [
-          Column(
-            children: [
-              Container(
-                margin: const EdgeInsets.fromLTRB(20, 15, 20, 15),
-                width: double.infinity,
-                height: 40,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(30),
-                  color: Colors.white,
-                ),
-                child: SearchItem(),
-              ),
-            ],
+          Container(
+            margin: const EdgeInsets.fromLTRB(20, 15, 20, 15),
+            width: double.infinity,
+            height: 40,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(30),
+              color: Colors.white,
+            ),
+            child: SearchItem(),
           ),
           Expanded(
             child: FutureBuilder<List<ItemList>>(
-                future: _itemList.getItemList(),
+                future: _itemList.getCategoryIngredients(),
                 builder: (context, snapshot) {
                   var data = snapshot.data;
                   return snapshot.connectionState == ConnectionState.waiting

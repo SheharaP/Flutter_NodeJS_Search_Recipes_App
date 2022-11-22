@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-
 import 'package:recipe_app/home_page.dart';
+import 'package:recipe_app/search/filter_page.dart';
 
 import 'package:recipe_app/selected_ingredient.dart';
 import 'package:recipe_app/recipes.dart';
@@ -38,6 +38,7 @@ class _RootState extends State<Root> {
     const HomePage(),
     const SelectedIngredients(),
     Recipes(),
+    FilterPage(),
   ];
 
   @override

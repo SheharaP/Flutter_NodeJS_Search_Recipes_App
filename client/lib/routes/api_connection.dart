@@ -14,13 +14,38 @@ class FetchItemList {
   List<ItemList> results = [];
   static String urlItemList = 'http://192.168.213.179:8080/items/';
 
+Future<List> getCategoryList({String? query}) async {
+  
+    var response = await Dio().get(urlItemList);
+
+    if (response.statusCode == 200) {
+      final List categories = response.data.toList();
+
+      List<dynamic> foundCategories = [];
+      List<dynamic> uniqueCategories = [];
+
+      for (var element in categories) {
+        //print(element['category'].join(', '));
+        for (var e in element['category']) {
+          foundCategories.add(e);
+        }
+      }
+
+      //print(foundCategories.length);
+
+      //print(foundCategories.toSet().toList());
+
+      return foundCategories.toSet().toList();
+    } else {
+      throw Exception();
+    }
+  }
+
   Future<List<ItemList>> getItemList({String? query}) async {
     try {
-
       var response = await Dio().get(urlItemList);
 
       if (response.statusCode == 200) {
-
         data = response.data.toList();
 
         print(data);
@@ -42,49 +67,50 @@ class FetchItemList {
     } on Exception catch (e) {
       print('error: $e');
     }
+
     return results;
   }
 
-  List<String> categoryResult = [];
-  var categoryData = [];
+  Future<List<ItemList>> getCategoryIngredients({String? query}) async {
+    var response = await Dio().get(urlItemList);
 
-    Future<List<String>> getCategoryList({String? query}) async {
-    try {
+    List<ItemList> newItemList = [];
 
-      var response = await Dio().get(urlItemList);
+    if (response.statusCode == 200) {
 
-      if (response.statusCode == 200) {
+      if (query == null) {
 
-        categoryData = response.data.category.toList();
+        print('NULL QUERY');
 
-        print(categoryData);
+        newItemList = await getItemList();
 
-        categoryResult = categoryData.map((e) => ItemList.fromJson(e)).cast<String>().toList();
+        return newItemList;
 
-        // if (query != null) {
-        //   categoryResult = categoryResult
-        //       .where(
-        //         (element) => element.name.toLowerCase().contains(
-        //               (query.toLowerCase()),
-        //             ),
-        //       )
-        //       .toList();
-        // }
       } else {
-        print("fetch error");
+
+        print('NOT NULL QUERY');
+        final List categories = response.data.toList();
+
+        List<dynamic> foundCategoryItems = [];
+
+        for (var element in categories) {
+          //print(element['category'].join(', '));
+          for (var e in element[query]) {
+            print(element['name']);
+          }
+        }
+
+        return newItemList;
       }
-    } on Exception catch (e) {
-      print('error: $e');
+    } else {
+      throw Exception();
     }
-    return categoryResult;
   }
 
   static Future<List<ItemList>> searchItemList(String query) async {
-
     var res = await Dio().get(urlItemList);
 
     if (res.statusCode == 200) {
-
       final List items = res.data.toList();
       print(items);
 
@@ -108,11 +134,9 @@ class FetchRecipeList {
 
   Future<List<RecipeList>> getRecipeList({String? query}) async {
     try {
-
       var response = await Dio().get(urlRecipeList);
 
       if (response.statusCode == 200) {
-
         data = response.data.toList();
         print(data);
 
@@ -137,7 +161,6 @@ class FetchRecipeList {
   }
 
   static Future<List<RecipeList>> searchRecipeList(String query) async {
-    
     var res = await Dio().get(urlRecipeList);
 
     if (res.statusCode == 200) {
@@ -156,37 +179,32 @@ class FetchRecipeList {
   }
 
   static Future<List<RecipeList>> searchRecipes() async {
-
-    var res = await http.get(Uri.parse(urlRecipeList));
+    var res = await Dio().get(urlRecipeList);
 
     if (res.statusCode == 200) {
-
       //Future<List<String?>> query =  SearchUser.searchIngredientsList();
 
-      final List recipes = json.decode(res.body);
+      final List recipes = res.data.toList();
 
       List<String> foundRecipes = [];
       //print(recipes);
-      
-      List<dynamic> list = await SearchItem.searchIngredientsList() ;
+
+      List<dynamic> list = await SearchItem.searchIngredientsList();
+      Function unOrdDeepEq = const DeepCollectionEquality.unordered().equals;
 
       return recipes.map((e) => RecipeList.fromJson(e)).where((recipe) {
-
         final ingredientsLower = recipe.ingredients;
         print('===================div==================');
         print(ingredientsLower);
         print(list);
+        print(unOrdDeepEq(ingredientsLower, list));
 
-        Function unOrdDeepEq = const DeepCollectionEquality.unordered().equals;
-        print(unOrdDeepEq(ingredientsLower, list)); 
-        
-        if(unOrdDeepEq(ingredientsLower, list)){
+        if (unOrdDeepEq(ingredientsLower, list)) {
           foundRecipes.add(recipe.name);
         }
         print(foundRecipes);
-        
-        return unOrdDeepEq(ingredientsLower, list);
 
+        return unOrdDeepEq(ingredientsLower, list);
       }).toList();
     } else {
       throw Exception();
