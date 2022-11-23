@@ -18,7 +18,9 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        primarySwatch: Colors.teal,
+        colorScheme: ColorScheme.fromSwatch().copyWith(
+          primary: const Color(0xFF603813),
+        ),
       ),
       home: const Root(),
     );
@@ -35,10 +37,9 @@ class Root extends StatefulWidget {
 class _RootState extends State<Root> {
   int currentPage = 0;
   List<Widget> pages = [
-    const HomePage(),
+    HomePage(),
     const SelectedIngredients(),
     Recipes(),
-    FilterPage(),
   ];
 
   @override
@@ -74,7 +75,8 @@ class _RootState extends State<Root> {
               ),
               label: 'Ingredients'),
           NavigationDestination(
-              icon: Icon(Icons.list_alt_sharp, size: 30), label: 'Selected Items'),
+              icon: Icon(Icons.list_alt_sharp, size: 30),
+              label: 'Selected Items'),
           NavigationDestination(
               icon: ImageIcon(
                 AssetImage("Images/recipes_nav.png"),

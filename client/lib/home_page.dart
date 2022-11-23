@@ -8,7 +8,8 @@ import 'package:recipe_app/search/search_ingredient.dart';
 import 'package:recipe_app/models/ingredient_model.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+
+  HomePage({super.key});
 
   @override
   _HomePageState createState() => _HomePageState();
@@ -21,9 +22,9 @@ class _HomePageState extends State<HomePage> {
     return SafeArea(
       child: Column(
         children: [
-          FilterPage(),
+          FilterPage(null),
           Expanded(
-            child: IngredientsPage(),
+            child: IngredientsPage(null),
           ),
         ],
       ),

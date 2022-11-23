@@ -7,16 +7,17 @@ import 'package:recipe_app/search/search_ingredient.dart';
 import 'package:recipe_app/models/ingredient_model.dart';
 
 class IngredientsPage extends StatefulWidget {
-  const IngredientsPage({super.key});
+
+  String? ingredient;
+
+  IngredientsPage(this.ingredient, {super.key});
 
   @override
   _IngredientsPageState createState() => _IngredientsPageState();
+
 }
 
 class _IngredientsPageState extends State<IngredientsPage> {
-  final FetchItemList _itemList = FetchItemList();
-
-  String? category = 'fruits';
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +35,7 @@ class _IngredientsPageState extends State<IngredientsPage> {
           ),
           Expanded(
             child: FutureBuilder<List<dynamic>>(
-                future: _itemList.getCategoryIngredients(category: category),
+                future: FetchItemList.getCategoryIngredients(category: widget.ingredient),
                 builder: (context, snapshot) {
                   var data = snapshot.data;
                   return snapshot.connectionState == ConnectionState.waiting

@@ -2,7 +2,6 @@ import 'dart:convert';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 
-import 'package:http/http.dart' as http;
 import 'package:dio/dio.dart';
 
 import 'package:recipe_app/models/recipe_model.dart';
@@ -71,7 +70,7 @@ Future<List> getCategoryList({String? query}) async {
     return results;
   }
 
-  Future<List<dynamic>> getCategoryIngredients({String? category}) async {
+  static Future<List<dynamic>> getCategoryIngredients({String? category}) async {
 
     var response = await Dio().get(urlItemList);
 
@@ -86,7 +85,7 @@ Future<List> getCategoryList({String? query}) async {
         final List items = response.data.toList();
 
         for (var element in items) {
-          print(element);
+          //print(element);
           allItemList.add(element['name']);
         }
 
@@ -98,16 +97,18 @@ Future<List> getCategoryList({String? query}) async {
 
         print('NOT NULL QUERY');
 
+        print(category);
+
         final List categories = response.data.toList();
 
         List<dynamic> foundCategoryItems = [];
 
         for (var element in categories) {
           for (var e in element['category']) {
-            print(e);
+            //print(e);
             if(e == category){
               foundCategoryItems.add(element['name']);
-              print(element['name']);
+              //print(element['name']);
               break;
             }
             else{
@@ -117,7 +118,7 @@ Future<List> getCategoryList({String? query}) async {
           }
         }
 
-        print(foundCategoryItems);
+        //print(foundCategoryItems);
 
         return foundCategoryItems;
       }

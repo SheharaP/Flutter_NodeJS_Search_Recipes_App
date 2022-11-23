@@ -1,43 +1,72 @@
 import 'package:flutter/material.dart';
+import 'package:recipe_app/home_page.dart';
 import 'package:recipe_app/models/ingredient_model.dart';
 import 'package:recipe_app/routes/api_connection.dart';
+import 'package:recipe_app/search/ingredients.dart';
 
-class FilterPage extends StatelessWidget {
-  FilterPage({super.key});
+class FilterPage extends StatefulWidget {
+  String? category;
 
+  FilterPage(this.category, {super.key});
 
-   final FetchItemList _itemList = FetchItemList();
+  @override
+  State<FilterPage> createState() => _FilterPageState();
+}
 
-   static String? filterCategory (String item) {
-    print('Recieved ${item}');
-    return item;
-  }
-   
+class _FilterPageState extends State<FilterPage> {
+  final FetchItemList _itemList = FetchItemList();
+
+  bool isVisible = true;
+
   @override
   Widget build(BuildContext context) {
-    return Container(
-            margin: EdgeInsets.fromLTRB(5, 20, 5, 5),
-            height: 50,
-            color: Colors.white,
-            padding: EdgeInsets.all(5),
-            child: FutureBuilder<List<dynamic>>(
-                future: _itemList.getCategoryList(),
-                builder: (context, snapshot) {
-                  var data = snapshot.data;
-                  print(data);
-                  return snapshot.connectionState == ConnectionState.waiting
-                      ? const CircularProgressIndicator()
-                      : ListView.separated(
-                          scrollDirection: Axis.horizontal,
-                          separatorBuilder: (context, _) => const SizedBox(
-                            width: 12,
-                          ),
-                          itemCount: data!.length,
-                          itemBuilder: (context, index) =>
-                              buildCard(item: data[index]),
-                        );
-                }),
-          );
+    return Column(children: [
+      Container(
+        margin: EdgeInsets.fromLTRB(20, 10, 0, 0),
+        padding: EdgeInsets.all(0),
+        child: Row(
+          children: [
+            const Text(
+              'Categories',
+              style: TextStyle(fontSize: 16),
+            ),
+            IconButton(
+                onPressed: () {
+                  setState(() {
+                    isVisible = !isVisible;
+                  });
+                },
+                icon: Icon(Icons.keyboard_arrow_down_outlined)),
+          ],
+        ),
+      ),
+      Visibility(
+        visible: isVisible,
+        child: Container(
+          margin: EdgeInsets.fromLTRB(5, 2, 5, 5),
+          height: 45,
+          color: Colors.white,
+          padding: EdgeInsets.all(5),
+          child: FutureBuilder<List<dynamic>>(
+              future: _itemList.getCategoryList(),
+              builder: (context, snapshot) {
+                var data = snapshot.data;
+                print(data);
+                return snapshot.connectionState == ConnectionState.waiting
+                    ? const CircularProgressIndicator()
+                    : ListView.separated(
+                        scrollDirection: Axis.horizontal,
+                        separatorBuilder: (context, _) => const SizedBox(
+                          width: 12,
+                        ),
+                        itemCount: data!.length,
+                        itemBuilder: (context, index) =>
+                            buildCard(item: data[index]),
+                      );
+              }),
+        ),
+      ),
+    ]);
   }
 
   Widget buildCard({
@@ -65,7 +94,10 @@ class FilterPage extends StatelessWidget {
                   ),
                   onTap: () {
                     debugPrint('Item pressed : ${item}');
-                    filterCategory(item);
+
+                    setState(() {
+                      FilterPage(item);
+                    });
                   },
                 ),
               ),
