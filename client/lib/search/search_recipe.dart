@@ -18,10 +18,10 @@ class SearchRecipe extends StatelessWidget {
       )),
       suggestionsCallback: FetchRecipeList.searchRecipeList,
       itemBuilder: (context, Recipe? suggestion) {
-        final user = suggestion!;
+        final recipe = suggestion!;
         //print(user.name);
         return ListTile(
-          title: Text(Recipe.formatCase(user.name)),
+          title: Text(Recipe.formatCase(recipe.name)),
           // onTap: () {
           //   debugPrint('Item ${(user.name)} selected');
           //   searchIngredientsList(value: user.name);
@@ -38,13 +38,13 @@ class SearchRecipe extends StatelessWidget {
         ),
       ),
       onSuggestionSelected: (Recipe? suggestion) {
-        final user = suggestion!;
+        final recipe = suggestion!;
 
         ScaffoldMessenger.of(context)
           ..removeCurrentSnackBar()
           ..showSnackBar(
             SnackBar(
-              content: Text('Selected recipe : ${user.name}'),
+              content: Text('Selected recipe : ${recipe.name}'),
             ),
           );
       },

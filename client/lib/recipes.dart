@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'dart:async';
 
 import 'package:recipe_app/routes/api_connection.dart';
 import 'package:recipe_app/search/search_recipe.dart';
 import 'package:recipe_app/models/recipe_model.dart';
+
+StreamController<int> streamController = StreamController<int>.broadcast();
 
 class Recipes extends StatefulWidget {
   @override
