@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
+import 'dart:async';
+
 import 'package:recipe_app/search/filter_page.dart';
-
-import 'package:recipe_app/routes/api_connection.dart';
 import 'package:recipe_app/search/ingredients.dart';
-
-import 'package:recipe_app/search/search_ingredient.dart';
 import 'package:recipe_app/models/ingredient_model.dart';
 
-class HomePage extends StatefulWidget {
+StreamController<int> streamController = StreamController<int>.broadcast();
 
-  HomePage({super.key});
+class HomePage extends StatefulWidget {
+  
+  const HomePage({super.key});
 
   @override
   _HomePageState createState() => _HomePageState();
@@ -22,9 +22,9 @@ class _HomePageState extends State<HomePage> {
     return SafeArea(
       child: Column(
         children: [
-          FilterPage(null),
+          FilterPage(),
           Expanded(
-            child: IngredientsPage(null),
+            child: IngredientsPage(streamController.stream),
           ),
         ],
       ),
@@ -35,7 +35,7 @@ class _HomePageState extends State<HomePage> {
     ..removeCurrentSnackBar()
     ..showSnackBar(
       SnackBar(
-        content: Text('Selected ingredient : ${Item.formatCase('${x}')}'),
+        content: Text('Selected ingredient : ${Item.formatCase('$x')}'),
         duration: const Duration(milliseconds: 500),
       ),
     );

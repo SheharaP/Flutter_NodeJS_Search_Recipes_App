@@ -44,7 +44,7 @@ class SearchRecipe extends StatelessWidget {
           ..removeCurrentSnackBar()
           ..showSnackBar(
             SnackBar(
-              content: Text('Selected user : ${user.name}'),
+              content: Text('Selected recipe : ${user.name}'),
             ),
           );
       },

@@ -51,7 +51,7 @@ class _RecipesState extends State<Recipes> {
                                 ),
                                 onTap: () {
                                   debugPrint(
-                                      'Item ${(data?[index].name)} selected');
+                                      'Recipe ${(data?[index].name)} selected');
                                   //SearchUser.searchIngredientsList(value : data?[index].name);
                                 },
                               ),

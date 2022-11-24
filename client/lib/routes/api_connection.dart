@@ -21,7 +21,7 @@ Future<List> getCategoryList({String? query}) async {
       final List categories = response.data.toList();
 
       List<dynamic> foundCategories = [];
-      List<dynamic> uniqueCategories = [];
+      //List<dynamic> uniqueCategories = [];
 
       for (var element in categories) {
         //print(element['category'].join(', '));
@@ -30,9 +30,7 @@ Future<List> getCategoryList({String? query}) async {
         }
       }
 
-      //print(foundCategories.length);
-
-      //print(foundCategories.toSet().toList());
+      //uniqueCategories = foundCategories.toSet().toList();
 
       return foundCategories.toSet().toList();
     } else {
@@ -40,35 +38,35 @@ Future<List> getCategoryList({String? query}) async {
     }
   }
 
-  Future<List<Item>> getItemList({String? query}) async {
-    try {
-      var response = await Dio().get(urlItemList);
+  // Future<List<Item>> getItemList({String? query}) async {
+  //   try {
+  //     var response = await Dio().get(urlItemList);
 
-      if (response.statusCode == 200) {
-        data = response.data.toList();
+  //     if (response.statusCode == 200) {
+  //       data = response.data.toList();
 
-        print(data);
+  //       print(data);
 
-        results = data.map((e) => Item.fromJson(e)).toList();
+  //       results = data.map((e) => Item.fromJson(e)).toList();
 
-        if (query != null) {
-          results = results
-              .where(
-                (element) => element.name.toLowerCase().contains(
-                      (query.toLowerCase()),
-                    ),
-              )
-              .toList();
-        }
-      } else {
-        print("fetch error");
-      }
-    } on Exception catch (e) {
-      print('error: $e');
-    }
+  //       if (query != null) {
+  //         results = results
+  //             .where(
+  //               (element) => element.name.toLowerCase().contains(
+  //                     (query.toLowerCase()),
+  //                   ),
+  //             )
+  //             .toList();
+  //       }
+  //     } else {
+  //       print("fetch error");
+  //     }
+  //   } on Exception catch (e) {
+  //     print('error: $e');
+  //   }
 
-    return results;
-  }
+  //   return results;
+  // }
 
   static Future<List<dynamic>> getCategoryIngredients({String? category}) async {
 
@@ -78,7 +76,7 @@ Future<List> getCategoryList({String? query}) async {
 
     if (response.statusCode == 200) {
 
-      if (category == null) {
+      if (category == ' ') {
 
         print('NULL QUERY');
 
@@ -89,7 +87,7 @@ Future<List> getCategoryList({String? query}) async {
           allItemList.add(element['name']);
         }
 
-        print(allItemList);
+        //print(allItemList);
 
         return allItemList;
 

@@ -5,9 +5,8 @@ import 'package:recipe_app/routes/api_connection.dart';
 import 'package:recipe_app/search/ingredients.dart';
 
 class FilterPage extends StatefulWidget {
-  String? category;
 
-  FilterPage(this.category, {super.key});
+  FilterPage({super.key});
 
   @override
   State<FilterPage> createState() => _FilterPageState();
@@ -61,7 +60,7 @@ class _FilterPageState extends State<FilterPage> {
                         ),
                         itemCount: data!.length,
                         itemBuilder: (context, index) =>
-                            buildCard(item: data[index]),
+                            buildCard(item: data[index], index: index),
                       );
               }),
         ),
@@ -70,7 +69,7 @@ class _FilterPageState extends State<FilterPage> {
   }
 
   Widget buildCard({
-    required String item,
+    required String item, required int index,
   }) =>
       Container(
         width: 120,
@@ -93,11 +92,8 @@ class _FilterPageState extends State<FilterPage> {
                     ),
                   ),
                   onTap: () {
-                    debugPrint('Item pressed : ${item}');
-
-                    setState(() {
-                      FilterPage(item);
-                    });
+                    debugPrint('Item pressed : $item');
+                    streamController.add(index);
                   },
                 ),
               ),
