@@ -27,7 +27,7 @@ class _FoundRecipeListState extends State<FoundRecipeList> {
         ),
       ),
       body: SingleChildScrollView(
-        child: FutureBuilder<List<RecipeList>>(
+        child: FutureBuilder<List<Recipe>>(
             future: FetchRecipeList.searchRecipes(),
             builder: (context, snapshot) {
               var data = snapshot.data;
@@ -41,7 +41,7 @@ class _FoundRecipeListState extends State<FoundRecipeList> {
                           margin: EdgeInsets.fromLTRB(15, 5, 15, 5),
                           child: ListTile(
                             title: Text(
-                              ItemList.formatCase('${data?[index].name}'),
+                              Item.formatCase('${data?[index].name}'),
                             ),
                             onTap: () {
                               debugPrint(

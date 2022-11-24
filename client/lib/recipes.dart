@@ -33,7 +33,7 @@ class _RecipesState extends State<Recipes> {
             ],
           ),
           Expanded(
-            child: FutureBuilder<List<RecipeList>>(
+            child: FutureBuilder<List<Recipe>>(
                 future: _recipeList.getRecipeList(),
                 builder: (context, snapshot) {
                   var data = snapshot.data;
@@ -47,7 +47,7 @@ class _RecipesState extends State<Recipes> {
                               margin: EdgeInsets.fromLTRB(15, 5, 15, 5),
                               child: ListTile(
                                 title: Text(
-                                  RecipeList.formatCase('${data?[index].name}'),
+                                  Recipe.formatCase('${data?[index].name}'),
                                 ),
                                 onTap: () {
                                   debugPrint(

@@ -36,7 +36,7 @@ class SearchItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TypeAheadField<ItemList?>(
+    return TypeAheadField<Item?>(
       debounceDuration: Duration(milliseconds: 500),
       textFieldConfiguration: const TextFieldConfiguration(
           decoration: InputDecoration(
@@ -45,11 +45,11 @@ class SearchItem extends StatelessWidget {
         hintText: 'Search Ingredients',
       )),
       suggestionsCallback: FetchItemList.searchItemList,
-      itemBuilder: (context, ItemList? suggestion) {
+      itemBuilder: (context, Item? suggestion) {
         final item = suggestion!;
         //print(user.name);
         return ListTile(
-          title: Text(ItemList.formatCase(item.name)),
+          title: Text(Item.formatCase(item.name)),
           onTap: () {
             debugPrint('Item ${(item.name)} selected');
             searchIngredientsList(value: item.name);
@@ -65,7 +65,7 @@ class SearchItem extends StatelessWidget {
           ),
         ),
       ),
-      onSuggestionSelected: (ItemList? suggestion) {
+      onSuggestionSelected: (Item? suggestion) {
         final item = suggestion!;
 
         ScaffoldMessenger.of(context)

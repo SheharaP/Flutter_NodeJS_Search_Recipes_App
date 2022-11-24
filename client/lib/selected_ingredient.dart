@@ -39,7 +39,7 @@ class _SelectedIngredientsState extends State<SelectedIngredients> {
                               Expanded(
                                 child: ListTile(
                                     title: Text(
-                                      ItemList.formatCase('${data?[index]}'),
+                                      Item.formatCase('${data?[index]}'),
                                     ),
                                     trailing: IconButton(
                                       icon: const Icon(
@@ -103,7 +103,7 @@ class _SelectedIngredientsState extends State<SelectedIngredients> {
     ..removeCurrentSnackBar()
     ..showSnackBar(
       SnackBar(
-        content: Text('Deleted ingredient : ${ItemList.formatCase('${x}')}'),
+        content: Text('Deleted ingredient : ${Item.formatCase('${x}')}'),
         duration: const Duration(milliseconds: 500),
       ),
     );

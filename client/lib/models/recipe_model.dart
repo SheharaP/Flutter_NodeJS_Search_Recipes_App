@@ -1,16 +1,16 @@
 
-class RecipeList {
+class Recipe{
   final String name;
   int? id;
   final List ingredients;
 
-  RecipeList(
+  Recipe(
       {
       this.id,
       required this.name,
       required this.ingredients});
 
-static RecipeList fromJson(Map<String, dynamic> json) => RecipeList (
+static Recipe fromJson(Map<String, dynamic> json) => Recipe (
   name : json['name'], ingredients: json['ingredients'],
 );
 

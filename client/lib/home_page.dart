@@ -35,7 +35,7 @@ class _HomePageState extends State<HomePage> {
     ..removeCurrentSnackBar()
     ..showSnackBar(
       SnackBar(
-        content: Text('Selected ingredient : ${ItemList.formatCase('${x}')}'),
+        content: Text('Selected ingredient : ${Item.formatCase('${x}')}'),
         duration: const Duration(milliseconds: 500),
       ),
     );

@@ -10,8 +10,8 @@ import 'package:recipe_app/search/search_ingredient.dart';
 
 class FetchItemList {
   var data = [];
-  List<ItemList> results = [];
-  static String urlItemList = 'http://192.168.213.179:8080/items/';
+  List<Item> results = [];
+  static String urlItemList = 'http://192.168.65.179:8080/items/';
 
 Future<List> getCategoryList({String? query}) async {
   
@@ -40,7 +40,7 @@ Future<List> getCategoryList({String? query}) async {
     }
   }
 
-  Future<List<ItemList>> getItemList({String? query}) async {
+  Future<List<Item>> getItemList({String? query}) async {
     try {
       var response = await Dio().get(urlItemList);
 
@@ -49,7 +49,7 @@ Future<List> getCategoryList({String? query}) async {
 
         print(data);
 
-        results = data.map((e) => ItemList.fromJson(e)).toList();
+        results = data.map((e) => Item.fromJson(e)).toList();
 
         if (query != null) {
           results = results
@@ -127,14 +127,14 @@ Future<List> getCategoryList({String? query}) async {
     }
   }
 
-  static Future<List<ItemList>> searchItemList(String query) async {
+  static Future<List<Item>> searchItemList(String query) async {
     var res = await Dio().get(urlItemList);
 
     if (res.statusCode == 200) {
       final List items = res.data.toList();
       print(items);
 
-      return items.map((e) => ItemList.fromJson(e)).where((item) {
+      return items.map((e) => Item.fromJson(e)).where((item) {
         final nameLower = item.name.toLowerCase();
         final queryLower = query.toLowerCase();
 
@@ -148,11 +148,11 @@ Future<List> getCategoryList({String? query}) async {
 
 class FetchRecipeList {
   var data = [];
-  List<RecipeList> resultRecipes = [];
+  List<Recipe> resultRecipes = [];
 
-  static String urlRecipeList = 'http://192.168.213.179:8080/recipes/';
+  static String urlRecipeList = 'http://192.168.65.179:8080/recipes/';
 
-  Future<List<RecipeList>> getRecipeList({String? query}) async {
+  Future<List<Recipe>> getRecipeList({String? query}) async {
     try {
       var response = await Dio().get(urlRecipeList);
 
@@ -160,7 +160,7 @@ class FetchRecipeList {
         data = response.data.toList();
         print(data);
 
-        resultRecipes = data.map((e) => RecipeList.fromJson(e)).toList();
+        resultRecipes = data.map((e) => Recipe.fromJson(e)).toList();
 
         if (query != null) {
           resultRecipes = resultRecipes
@@ -180,14 +180,14 @@ class FetchRecipeList {
     return resultRecipes;
   }
 
-  static Future<List<RecipeList>> searchRecipeList(String query) async {
+  static Future<List<Recipe>> searchRecipeList(String query) async {
     var res = await Dio().get(urlRecipeList);
 
     if (res.statusCode == 200) {
       final List recipes = res.data.toList();
       print(recipes);
 
-      return recipes.map((e) => RecipeList.fromJson(e)).where((recipe) {
+      return recipes.map((e) => Recipe.fromJson(e)).where((recipe) {
         final nameLower = recipe.name.toLowerCase();
         final queryLower = query.toLowerCase();
 
@@ -198,7 +198,7 @@ class FetchRecipeList {
     }
   }
 
-  static Future<List<RecipeList>> searchRecipes() async {
+  static Future<List<Recipe>> searchRecipes() async {
     var res = await Dio().get(urlRecipeList);
 
     if (res.statusCode == 200) {
@@ -212,7 +212,7 @@ class FetchRecipeList {
       List<dynamic> list = await SearchItem.searchIngredientsList();
       Function unOrdDeepEq = const DeepCollectionEquality.unordered().equals;
 
-      return recipes.map((e) => RecipeList.fromJson(e)).where((recipe) {
+      return recipes.map((e) => Recipe.fromJson(e)).where((recipe) {
         final ingredientsLower = recipe.ingredients;
         print('===================div==================');
         print(ingredientsLower);

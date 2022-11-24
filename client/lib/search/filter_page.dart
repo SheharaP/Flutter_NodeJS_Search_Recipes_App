@@ -88,7 +88,7 @@ class _FilterPageState extends State<FilterPage> {
                       color: const Color(0xFF603813),
                     ),
                     child: Text(
-                      ItemList.formatCase(item),
+                      Item.formatCase(item),
                       style: const TextStyle(color: Colors.white),
                     ),
                   ),

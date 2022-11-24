@@ -48,7 +48,7 @@ class _IngredientsPageState extends State<IngredientsPage> {
                               margin: const EdgeInsets.fromLTRB(15, 5, 15, 5),
                               child: ListTile(
                                 title: Text(
-                                  ItemList.formatCase('${data?[index]}'),
+                                  Item.formatCase('${data?[index]}'),
                                 ),
                                 onTap: () {
                                   debugPrint(
@@ -70,7 +70,7 @@ class _IngredientsPageState extends State<IngredientsPage> {
     ..removeCurrentSnackBar()
     ..showSnackBar(
       SnackBar(
-        content: Text('Selected ingredient : ${ItemList.formatCase('${x}')}'),
+        content: Text('Selected ingredient : ${Item.formatCase('${x}')}'),
         duration: const Duration(milliseconds: 500),
       ),
     );

@@ -1,16 +1,16 @@
 
-class ItemList {
+class Item {
   final String name;
   int? id;
   final List category;
 
-  ItemList(
+  Item(
       {
       this.id,
       required this.name,
       required this.category});
 
-static ItemList fromJson(Map<String, dynamic> json) => ItemList (
+static Item fromJson(Map<String, dynamic> json) => Item (
   name : json['name'],
   category : json['category'],
 );
@@ -45,10 +45,10 @@ static String formatCase(String text) {
   // }
 
   Map<String, dynamic> toJson(e) {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['name'] = this.name;
-    data['category'] = this.category;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['name'] = name;
+    data['category'] = category;
 
     return data;
   }
