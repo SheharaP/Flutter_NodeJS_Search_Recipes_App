@@ -2,17 +2,17 @@
 class Item {
   final String name;
   int? id;
-  final List category;
+  final List<String> categories;
 
   Item(
       {
       this.id,
       required this.name,
-      required this.category});
+      required this.categories});
 
 static Item fromJson(Map<String, dynamic> json) => Item (
   name : json['name'],
-  category : json['category'],
+  categories : json['category'],
 );
 
 static String formatCase(String text) {
@@ -48,7 +48,7 @@ static String formatCase(String text) {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['id'] = id;
     data['name'] = name;
-    data['category'] = category;
+    data['category'] = categories;
 
     return data;
   }

@@ -2,7 +2,7 @@
 class Recipe{
   final String name;
   int? id;
-  final List ingredients;
+  final List<String> ingredients;
 
   Recipe(
       {

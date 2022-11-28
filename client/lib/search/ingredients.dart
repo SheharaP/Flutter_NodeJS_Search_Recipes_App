@@ -11,7 +11,7 @@ import 'package:recipe_app/models/ingredient_model.dart';
 class IngredientsPage extends StatefulWidget {
    final Stream<int> stream;
 
-  const IngredientsPage(this.stream);
+  const IngredientsPage(this.stream, {super.key});
 
   @override
   _IngredientsPageState createState() => _IngredientsPageState();
@@ -28,11 +28,11 @@ class _IngredientsPageState extends State<IngredientsPage> {
   void initState(){
     super.initState();
     widget.stream.listen((index) { 
-      mySetStae(index);
+      mySetState(index);
     });
   }
 
-  void mySetStae(int index) async{
+  void mySetState(int index) async{
     List categoryList = await _itemList.getCategoryList();
     setState(() {
       category = categoryList[index];
@@ -51,7 +51,7 @@ class _IngredientsPageState extends State<IngredientsPage> {
             borderRadius: BorderRadius.circular(30),
             color: Colors.white,
           ),
-          child: SearchItem(),
+          child: const SearchItem(),
         ),
         Expanded(
           child: FutureBuilder<List<dynamic>>(

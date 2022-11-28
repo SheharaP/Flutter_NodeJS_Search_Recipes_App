@@ -8,6 +8,8 @@ class SearchItem extends StatelessWidget {
 
   static List<String?> searchRecipeList = [];
 
+  const SearchItem({super.key});
+
   static Future<List<String?>> searchIngredientsList({String? value}) async {
     // ignore: iterable_contains_unrelated_type
     
@@ -17,7 +19,6 @@ class SearchItem extends StatelessWidget {
       if (value != null) {
 
         searchRecipeList.add(value);
-        print(searchRecipeList);
       }
     }
     return searchRecipeList;
@@ -37,7 +38,7 @@ class SearchItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TypeAheadField<Item?>(
-      debounceDuration: Duration(milliseconds: 500),
+      debounceDuration:const Duration(milliseconds: 500),
       textFieldConfiguration: const TextFieldConfiguration(
           decoration: InputDecoration(
         prefixIcon: Icon(Icons.search_outlined),
@@ -56,9 +57,9 @@ class SearchItem extends StatelessWidget {
           },
         );
       },
-      noItemsFoundBuilder: (context) => Container(
+      noItemsFoundBuilder: (context) => const SizedBox(
         height: 100,
-        child: const Center(
+        child: Center(
           child: Text(
             'No ingredients found',
             style: TextStyle(fontSize: 20),

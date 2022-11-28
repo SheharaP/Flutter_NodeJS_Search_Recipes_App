@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:recipe_app/home_page.dart';
 import 'package:recipe_app/models/ingredient_model.dart';
 import 'package:recipe_app/routes/api_connection.dart';
-import 'package:recipe_app/search/ingredients.dart';
 
 class FilterPage extends StatefulWidget {
 
@@ -21,8 +20,8 @@ class _FilterPageState extends State<FilterPage> {
   Widget build(BuildContext context) {
     return Column(children: [
       Container(
-        margin: EdgeInsets.fromLTRB(20, 10, 0, 0),
-        padding: EdgeInsets.all(0),
+        margin: const EdgeInsets.fromLTRB(20, 10, 0, 0),
+        padding: const EdgeInsets.all(0),
         child: Row(
           children: [
             const Text(
@@ -35,22 +34,22 @@ class _FilterPageState extends State<FilterPage> {
                     isVisible = !isVisible;
                   });
                 },
-                icon: Icon(Icons.keyboard_arrow_down_outlined)),
+                icon: const Icon(Icons.keyboard_arrow_down_outlined)),
           ],
         ),
       ),
       Visibility(
         visible: isVisible,
         child: Container(
-          margin: EdgeInsets.fromLTRB(5, 2, 5, 5),
+          margin:const EdgeInsets.fromLTRB(5, 2, 5, 5),
           height: 45,
           color: Colors.white,
-          padding: EdgeInsets.all(5),
+          padding:const EdgeInsets.all(5),
           child: FutureBuilder<List<dynamic>>(
               future: _itemList.getCategoryList(),
               builder: (context, snapshot) {
                 var data = snapshot.data;
-                print(data);
+                
                 return snapshot.connectionState == ConnectionState.waiting
                     ? const CircularProgressIndicator()
                     : ListView.separated(
@@ -71,7 +70,7 @@ class _FilterPageState extends State<FilterPage> {
   Widget buildCard({
     required String item, required int index,
   }) =>
-      Container(
+      SizedBox(
         width: 120,
         child: Row(
           children: [

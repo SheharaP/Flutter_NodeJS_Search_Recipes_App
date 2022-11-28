@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:recipe_app/search/found_recipes.dart';
 
+import 'package:recipe_app/search/found_recipes.dart';
 import 'package:recipe_app/search/search_ingredient.dart';
 import 'package:recipe_app/models/ingredient_model.dart';
 
@@ -27,13 +27,13 @@ class _SelectedIngredientsState extends State<SelectedIngredients> {
             builder: (context, snapshot) {
               var data = snapshot.data;
               return snapshot.connectionState == ConnectionState.waiting
-                  ? CircularProgressIndicator()
+                  ? const CircularProgressIndicator()
                   : ListView.builder(
                       shrinkWrap: true,
                       itemCount: data?.length,
                       itemBuilder: (context, index) {
                         return Card(
-                          margin: EdgeInsets.fromLTRB(15, 5, 15, 5),
+                          margin: const EdgeInsets.fromLTRB(15, 5, 15, 5),
                           child: Row(
                             children: [
                               Expanded(
@@ -69,31 +69,19 @@ class _SelectedIngredientsState extends State<SelectedIngredients> {
             },
             child: const Text('Reset'),
           ),
-          OutlinedButton(
-            onPressed: () {
+          OutlinedButton( 
+            onPressed: () async {
               Navigator.of(context).push(
                 MaterialPageRoute(
                   builder: (BuildContext context) {
-                    return const FoundRecipeList();
+                    return const FoundRecipes();
                   },
                 ),
               );
+              //streamController.add(await FetchRecipeList.searchRecipes());
             },
             child: const Text('Get Recipes!'),
           ),
-          // Container(
-          //   width: 40.0,
-          //   height: 40.0,
-          //   margin: EdgeInsets.all(20),
-          //   child: FloatingActionButton(
-          //     onPressed: () {
-          //       debugPrint('Floating Action Button');
-          //     },
-          //     child: const Icon(
-          //       Icons.arrow_forward_ios_outlined,
-          //     ),
-          //   ),
-          // ),
         ],
       ),
     ]);
@@ -103,7 +91,7 @@ class _SelectedIngredientsState extends State<SelectedIngredients> {
     ..removeCurrentSnackBar()
     ..showSnackBar(
       SnackBar(
-        content: Text('Deleted ingredient : ${Item.formatCase('${x}')}'),
+        content: Text('Deleted ingredient : ${Item.formatCase('$x')}'),
         duration: const Duration(milliseconds: 500),
       ),
     );

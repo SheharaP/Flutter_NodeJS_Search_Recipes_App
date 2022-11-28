@@ -5,11 +5,13 @@ import 'package:recipe_app/routes/api_connection.dart';
 import 'package:recipe_app/models/recipe_model.dart';
 
 class SearchRecipe extends StatelessWidget {
+  const SearchRecipe({super.key});
+
 
   @override
   Widget build(BuildContext context) {
     return TypeAheadField<Recipe?>(
-      debounceDuration: Duration(milliseconds: 500),
+      debounceDuration: const Duration(milliseconds: 500),
       textFieldConfiguration: const TextFieldConfiguration(
           decoration: InputDecoration(
         prefixIcon: Icon(Icons.search_outlined),
@@ -28,9 +30,9 @@ class SearchRecipe extends StatelessWidget {
           // },
         );
       },
-      noItemsFoundBuilder: (context) => Container(
+      noItemsFoundBuilder: (context) => const SizedBox(
         height: 100,
-        child: const Center(
+        child: Center(
           child: Text(
             'No ingredients found',
             style: TextStyle(fontSize: 20),
