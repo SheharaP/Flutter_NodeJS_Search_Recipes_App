@@ -35,9 +35,9 @@ class Root extends StatefulWidget {
 
 class _RootState extends State<Root> {
   int currentPage = 0;
-  List<Widget> pages = [
+  List<Widget> pages = const [
     HomePage(),
-    const SelectedIngredients(),
+    SelectedIngredients(),
     Recipes(),
   ];
 
