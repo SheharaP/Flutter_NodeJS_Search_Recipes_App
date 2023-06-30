@@ -20,6 +20,6 @@ Client > Flutter front-end side
 Server > NodE JS back-end and Mongo DB database connection
 
 <p float="left">
-  <img src="1.png" width="400" />
-  <img src="2.png" width="400" /> 
+  <img src="client/Images/1.png" width="400" />
+  <img src="client/Images/2.png" width="400" /> 
 </p>
