@@ -19,7 +19,6 @@ Client > Flutter front-end side
 
 Server > NodE JS back-end and Mongo DB database connection
 
-<p float="left">
-  <img src="client/Images/1.png" width="400" />
-  <img src="client/Images/2.png" width="400" /> 
-</p>
+| Image 1               | Image 2               |
+|:---------------------:|:---------------------:|
+| ![Image 1](client/Images/1.png) | ![Image 2](client/Images/2.png) |
